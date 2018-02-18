@@ -12,11 +12,15 @@ import session from 'express-session'
 import Redis from 'ioredis'
 import connectRedis from 'connect-redis'
 import csrf from 'csurf'
+import socketIO from 'socket.io'
 
 import index from './routes/index'
 
 const RedisStore = connectRedis(session)
 const app = express()
+
+const io = socketIO()
+app.io = io
 
 // view engine setup
 const dirname = __dirname.match(/server/) ? path.join(__dirname, '..', 'dist') : __dirname
@@ -67,6 +71,17 @@ app.use((err, req, res) => {
   res.locals.error = req.app.get('env') === 'development' ? err : {}
   res.status(err.status || 500)
   res.render('error')
+})
+
+// --------------------------------------------------
+// Socket
+// --------------------------------------------------
+io.on('connection', (socket) => {
+  socket.emit('info', {
+    message: 'serverInfo::connected'
+  }, (response) => {
+    console.log(response)
+  })
 })
 
 module.exports = app

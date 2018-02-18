@@ -1,15 +1,18 @@
 <template>
   <div id="app">
+    <socket />
     <three />
   </div>
 </template>
 
 <script>
+  import Socket from './components/Socket'
   import Three from './components/Three'
 
   export default {
     name: 'app',
     components: {
+      Socket,
       Three
     }
   }

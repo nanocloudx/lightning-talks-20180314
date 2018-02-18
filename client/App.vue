@@ -1,13 +1,17 @@
 <template>
   <div id="app">
-    <h1>It works!</h1>
+    <three />
   </div>
 </template>
 
 <script>
-  // import { mapState } from 'vuex'
+  import Three from './components/Three'
+
   export default {
-    name: 'app'
+    name: 'app',
+    components: {
+      Three
+    }
   }
 </script>
 

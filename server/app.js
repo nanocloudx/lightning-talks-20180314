@@ -77,10 +77,18 @@ app.use((err, req, res) => {
 // Socket
 // --------------------------------------------------
 io.on('connection', (socket) => {
+  console.log('serverInfo::connected')
   socket.emit('info', {
-    message: 'serverInfo::connected'
+    message: 'server2client::connected'
   }, (response) => {
     console.log(response)
+  })
+  socket.on('disconnect', () => {
+    console.log('serverInfo::disconnected')
+  })
+  socket.on('onClickButton', () => {
+    console.log('debug:fire!!!')
+    socket.broadcast.emit('changeColor', `0x${Math.floor(Math.random() * 16777215).toString(16)}`)
   })
 })
 

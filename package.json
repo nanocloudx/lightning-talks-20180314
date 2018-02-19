@@ -12,7 +12,7 @@
     "aaa": "babel server -d dist"
   },
   "engines": {
-    "node": "9.x"
+    "node": "8.x"
   },
   "author": {
     "name": "nanocloudx",

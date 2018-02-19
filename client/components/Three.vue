@@ -21,11 +21,6 @@
   )
 
   export default {
-    methods: {
-      onClickButton() {
-        box.material.color.setHex(`0x${Math.floor(Math.random() * 16777215).toString(16)}`)
-      }
-    },
     mounted() {
       document.getElementById('stage').appendChild(renderer.domElement)
 
@@ -48,6 +43,13 @@
 
       // execute
       window.addEventListener('resize', resize)
+
+      const socket = window.io()
+      socket.on('changeColor', (hex) => {
+        console.log('debug:fire!!!!!!!!!!!!!!!!!!')
+        box.material.color.setHex(hex)
+      })
+
       resize()
       render()
     }

@@ -7,7 +7,6 @@
     "start": "yarn run pre-build && webpack --config webpack.prod.babel.js && babel server -d dist && node ./www",
     "dev": "yarn run pre-build && webpack --config webpack.dev.babel.js --watch & nodemon -L www-dev --exec babel-node",
     "pre-build": "yarn install && rimraf ./dist && cpx \"./server/views/*\" ./dist/views && cpx \"./server/public/**/*\" ./dist/public",
-    "test": "ava --verbose",
     "lint": "eslint --fix --ext .js,.vue .",
     "aaa": "babel server -d dist"
   },
@@ -36,10 +35,7 @@
     "morgan": "^1.9.0",
     "nodemon": "^1.15.0",
     "serve-favicon": "~2.4.5",
-    "socket.io": "^2.0.4"
-  },
-  "devDependencies": {
-    "ava": "^0.25.0",
+    "socket.io": "^2.0.4",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",

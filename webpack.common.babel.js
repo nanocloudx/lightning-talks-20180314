@@ -3,7 +3,6 @@ const path = require('path')
 module.exports = {
   entry: {
     client: './client/main.js',
-    viewer: './viewer/main.js',
     admin: './admin/main.js'
   },
   output: {

@@ -78,7 +78,7 @@ app.use((err, req, res) => {
 // --------------------------------------------------
 
 let connectionNum = 0
-let slideId = 1
+let slideId = 0
 
 let sticker = [0, 0, 0, 0]
 
@@ -113,7 +113,7 @@ io.on('connection', (socket) => {
 
   // [管理者]前のスライド
   socket.on('adminPrevSlide', () => {
-    if (slideId <= 1) {
+    if (slideId <= 0) {
       return
     }
     slideId--

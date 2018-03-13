@@ -1,3 +1,3 @@
 export default {
-  slideId: 1
+  slideId: 0
 }

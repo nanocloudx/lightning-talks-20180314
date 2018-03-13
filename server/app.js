@@ -76,16 +76,40 @@ app.use((err, req, res) => {
 // --------------------------------------------------
 // Socket
 // --------------------------------------------------
+
+let slideId = 1
+
 io.on('connection', (socket) => {
+  // 接続が開始したらログ＋現在のスライドを伝える
   console.log('serverInfo::connected')
-  socket.emit('info', {
-    message: 'server2client::connected'
-  }, (response) => {
-    console.log(response)
-  })
+  socket.emit('initialize', {slideId})
+
+  // 接続が終了したらログ
   socket.on('disconnect', () => {
     console.log('serverInfo::disconnected')
   })
+
+  // [管理者]次のスライド
+  socket.on('adminNextSlide', () => {
+    if (slideId >= 42) {
+      return
+    }
+    slideId++
+    socket.emit('changeSlide', {slideId})
+    socket.broadcast.emit('changeSlide', {slideId})
+  })
+
+  // [管理者]前のスライド
+  socket.on('adminPrevSlide', () => {
+    if (slideId <= 1) {
+      return
+    }
+    slideId--
+    socket.emit('changeSlide', {slideId})
+    socket.broadcast.emit('changeSlide', {slideId})
+  })
+
+  // TODO
   socket.on('onClickButton', () => {
     console.log('debug:fire!!!')
     socket.broadcast.emit('changeColor', `0x${Math.floor(Math.random() * 16777215).toString(16)}`)

@@ -1,1 +1,1 @@
-export const UPDATE_EXAMPLE = 'UPDATE_EXAMPLE'
+export const UPDATE_SLIDE_ID = 'UPDATE_SLIDE_ID'

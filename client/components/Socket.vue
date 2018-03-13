@@ -3,20 +3,25 @@
 </template>
 
 <script>
-  function connect() {
-    if (!window.io) {
-      return
-    }
-    const socket = window.io.connect()
-    socket.on('info', (data, callback) => {
-      console.log(data.message)
-      callback('clientInfo::connected')
-    })
-  }
+  import { mapActions } from 'vuex'
+
+  const socket = window.io.connect()
 
   export default {
-    beforeMount() {
-      connect()
+    methods: {
+      ...mapActions([
+        'updateSlideId'
+      ])
+    },
+    mounted() {
+      socket.on('initialize', (data) => {
+        console.log('initialize', data.slideId)
+        this.updateSlideId(data.slideId)
+      })
+      socket.on('changeSlide', (data) => {
+        console.log('changeSlide', data.slideId)
+        this.updateSlideId(data.slideId)
+      })
     }
   }
 </script>

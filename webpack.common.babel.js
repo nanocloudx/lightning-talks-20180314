@@ -2,7 +2,8 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    bundle: './client/main.js',
+    client: './client/main.js',
+    viewer: './viewer/main.js',
     admin: './admin/main.js'
   },
   output: {

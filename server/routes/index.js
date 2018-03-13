@@ -6,7 +6,7 @@ router.get(['/'], (req, res) => {
   res.render('index')
 })
 
-router.get(['/evergarden'], (req, res) => {
+router.get(['/violetevergarden'], (req, res) => {
   res.render('admin')
 })
 

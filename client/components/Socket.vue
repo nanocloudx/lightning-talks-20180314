@@ -3,9 +3,8 @@
 </template>
 
 <script>
+  import {socket} from '../socket'
   import { mapActions } from 'vuex'
-
-  const socket = window.io.connect()
 
   export default {
     methods: {

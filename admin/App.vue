@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <h1 class="slide-id">slide: {{ slideId }}</h1>
+    <h1 class="info">SlideId: {{ slideId }}</h1>
+    <h1 class="info">Connection: {{ connectionNum }}</h1>
+    <p class="info">👍{{sticker[0]}} 🤔{{sticker[1]}} 👎{{sticker[2]}} 😇{{sticker[3]}}</p>
     <button class="next-button" @click="onClickNext">NEXT</button>
     <button class="prev-button" @click="onClickPrev">PREV</button>
   </div>
@@ -12,18 +14,27 @@
   export default {
     data() {
       return {
-        slideId: 1
+        slideId: 1,
+        connectionNum: 0,
+        sticker: [0, 0, 0, 0]
       }
     },
     mounted() {
       socket.on('initialize', (data) => {
-        console.log('initialize', data.slideId)
         this.slideId = data.slideId
       })
       socket.on('changeSlide', (data) => {
-        console.log('changeSlide', data.slideId)
         this.slideId = data.slideId
       })
+      socket.on('connectionNum', (data) => {
+        this.connectionNum = data.connectionNum
+      })
+      socket.on('sticker', (data) => {
+        this.sticker = data.sticker
+      })
+      setInterval(() => {
+        socket.emit('connectionNum')
+      }, 1000)
     },
     methods: {
       onClickNext() {
@@ -31,7 +42,7 @@
       },
       onClickPrev() {
         socket.emit('adminPrevSlide')
-      },
+      }
     }
   }
 </script>
@@ -42,10 +53,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  .slide-id {
-    font-size: 30px;
+  .info {
+    font-size: 20px;
     text-align: center;
-    padding: 50px;
+    padding: 30px;
   }
   .next-button {
     font-size: 20px;

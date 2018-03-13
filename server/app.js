@@ -77,16 +77,28 @@ app.use((err, req, res) => {
 // Socket
 // --------------------------------------------------
 
+let connectionNum = 0
 let slideId = 1
+
+let sticker = [0, 0, 0, 0]
+
 
 io.on('connection', (socket) => {
   // 接続が開始したらログ＋現在のスライドを伝える
   console.log('serverInfo::connected')
   socket.emit('initialize', {slideId})
+  connectionNum++
 
   // 接続が終了したらログ
   socket.on('disconnect', () => {
     console.log('serverInfo::disconnected')
+    connectionNum--
+  })
+
+  // [管理者]接続数確認
+  socket.on('connectionNum', () => {
+    socket.emit('connectionNum', {connectionNum})
+    socket.broadcast.emit('connectionNum', {connectionNum})
   })
 
   // [管理者]次のスライド
@@ -109,10 +121,11 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('changeSlide', {slideId})
   })
 
-  // TODO
-  socket.on('onClickButton', () => {
-    console.log('debug:fire!!!')
-    socket.broadcast.emit('changeColor', `0x${Math.floor(Math.random() * 16777215).toString(16)}`)
+  // ステッカー
+  socket.on('sticker', (stickerId) => {
+    sticker[stickerId]++
+    socket.emit('sticker', {sticker})
+    socket.broadcast.emit('sticker', {sticker})
   })
 })
 

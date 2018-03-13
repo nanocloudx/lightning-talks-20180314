@@ -2,18 +2,21 @@
   <div id="app">
     <socket />
     <slide />
+    <sticker />
   </div>
 </template>
 
 <script>
   import Socket from './components/Socket'
   import Slide from './components/Slide'
+  import Sticker from './components/Sticker'
 
   export default {
     name: 'app',
     components: {
       Socket,
-      Slide
+      Slide,
+      Sticker
     }
   }
 </script>

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <socket />
+    <summarys />
     <slide />
     <sticker />
   </div>
@@ -8,6 +9,7 @@
 
 <script>
   import Socket from './components/Socket'
+  import Summarys from './components/Summary'
   import Slide from './components/Slide'
   import Sticker from './components/Sticker'
 
@@ -15,6 +17,7 @@
     name: 'app',
     components: {
       Socket,
+      Summarys,
       Slide,
       Sticker
     }
